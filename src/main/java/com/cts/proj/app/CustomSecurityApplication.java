@@ -11,39 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.cts.proj.app.util.JwtTokenFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-@EnableWebSecurity
 @Slf4j
-public class CustomSecurityApplication extends WebSecurityConfigurerAdapter{
-
-	@Resource
-	private UserDetailsService uds;
-	
-	/** Custom Web Security with User Details Service */
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
-	@Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(uds);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-	
-	
-	
-	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authProvider());
-    }
-
+public class CustomSecurityApplication{
 	/**
 	 * Main function
 	 * @param args
